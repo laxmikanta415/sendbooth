@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Sendbooth | Dashboard</title>
+
+<!-- Bootstrap -->
+<link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Font Awesome -->
+<link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet">
+<!-- NProgress -->
+<link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+<!-- iCheck -->
+<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+<!-- bootstrap-progressbar -->
+<link
+	th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}"
+	rel="stylesheet">
+<!-- JQVMap -->
+<link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet" />
+<!-- bootstrap-daterangepicker -->
+<link
+	th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}"
+	rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div th:replace="fragments/header :: header"></div>
+			<!-- top navigation -->
+			<div th:replace="fragments/topnav :: topnav"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<!-- start of my section -->
+				<!-- top tiles -->
+				<div class="row tile_count">
+					<div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+						<span class="count_top"><i class="fa fa-user"></i>
+							Subscribers</span>
+						<div class="count" th:utext="${subscriberCount}"></div>
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+						<span class="count_top"><i class="fa fa-user"></i>
+							Subscribers Groups</span>
+						<div class="count" th:utext="${subscriberGroupCount}"></div>
+					</div>
+					<div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+						<span class="count_top"><i class="fa fa-user"></i>
+							Marketing Campaign</span>
+						<div class="count">2500</div>
+					</div>
+				</div>
+				<!-- /top tiles -->
+				<!--End of my section -->
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>Notifications Center</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content bs-example-popovers">
+
+								<div class="alert alert-success alert-dismissible fade in"
+									role="alert">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<strong>You can change the AWS Credential</strong> below.
+								</div>
+
+							</div>
+						</div>
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>AWS SMTP Set up</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="awsKeysInfo" data-parsley-validate="" method="post"
+									th:object="${awsDetails}" autocomplete="off" action="#"
+									th:action="@{/admin/saveAwsSettings}"
+									class="form-horizontal form-label-left">
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="aws-secret-key">AWS Secret Key <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="aws-secret-key" required="required"
+												name="aws-secret-key" th:field="*{awsSecretKey}"
+												class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="aws-access-id">AWS Access Id <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="aws-access-id" name="aws-access-id"
+												required="required" th:field="*{awsSecretId}"
+												class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+											<button class="btn btn-primary" type="reset">Reset</button>
+											<button type="submit" class="btn btn-success">Submit</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+									How to get <small>AWS API Key</small>
+								</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<ul class="list-unstyled timeline">
+									<li>
+										<div class="block">
+											<div class="tags">
+												<a href="" class="tag"> <span>Step 1 :</span>
+												</a>
+											</div>
+											<div class="block_content">
+												<h2 class="title">Sign Up for an AWS Account</h2>
+												<div class="byline">
+													<span>You can start by clicking on </span> <a>here</a>
+												</div>
+												<p class="excerpt">Nam libero tempore, cum soluta nobis
+													est eligendi optio cumque nihil impedit quo minus id quod
+													maxime placeat facere possimus, omnis voluptas assumenda
+													est, omnis dolor repellendus</p>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="block">
+											<div class="tags">
+												<a href="" class="tag"> <span>Step 2 :</span>
+												</a>
+											</div>
+											<div class="block_content">
+												<h2 class="title">Nam libero tempore</h2>
+												<div class="byline">
+													<span>Nam libero tempore</span> by <a>click here</a>
+												</div>
+												<p class="excerpt">Nam libero tempore, cum soluta nobis
+													est eligendi optio cumque nihil impedit quo minus id quod
+													maxime placeat facere possimus, omnis voluptas assumenda
+													est, omnis dolor repellendus</p>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="block">
+											<div class="tags">
+												<a href="" class="tag"> <span>Step 3 : </span>
+												</a>
+											</div>
+											<div class="block_content">
+												<h2 class="title">Nam libero tempore</h2>
+												<div class="byline">
+													<span>Nam libero tempore</span> by <a>click here</a>
+												</div>
+												<p class="excerpt">Nam libero tempore, cum soluta nobis
+													est eligendi optio cumque nihil impedit quo minus id quod
+													maxime placeat facere possimus, omnis voluptas assumenda
+													est, omnis dolor repellendus</p>
+											</div>
+										</div>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer th:replace="fragments/footer :: footer"> </footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- Chart.js -->
+	<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+	<!-- gauge.js -->
+	<script th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+	<!-- Skycons -->
+	<script th:src="@{/vendors/skycons/skycons.js}"></script>
+	<!-- Flot -->
+	<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+	<!-- Flot plugins -->
+	<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+	<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+	<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+	<!-- DateJS -->
+	<script th:src="@{/vendors/DateJS/build/date.js}"></script>
+	<!-- JQVMap -->
+	<script th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+	<script th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+	<script
+		th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+	<script
+		th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+</body>
+</html>

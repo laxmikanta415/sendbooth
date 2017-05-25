@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sendbooth | Sign Up</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css"/>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		var height = document.getElementById('loginSignUpArea').offsetHeight;
+		jQuery('#loginSignUpArea').css('height', height);
+	});
+</script>
+</head>
+<body>
+	<form th:action="@{/}" method="get" id="registrationPage"></form>
+	<nav class="navbar navbar-toggleable-md navbar-inverse bg-info">
+		<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#navbarColor01"
+			aria-controls="navbarColor01" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">SendBooth</a>
+
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Features</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+			</ul>
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" />
+				<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+	<div class="container-fluid">
+
+		<div class="row" style="background: #6f5499;" id="loginSignUpArea">
+			<div class="col-md-7"></div>
+			<div class="col-md-5">
+
+				<h3 class="form-signin-heading"
+					style="color: #fff; padding-top: 15px;">Welcome to Sendbooth</h3>
+				<form autocomplete="off" action="#" th:action="@{/registration}"
+					th:object="${user}" method="post" class="form-horizontal"
+					id="signUpForm" role="form" style="margin-top: 25px;">
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+									class="validation-message"></label> <input type="text"
+									th:field="*{name}" placeholder="First Name"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<label th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}" class="validation-message"></label> <input
+									type="text" th:field="*{lastName}" placeholder="Last Name"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<label th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}" class="validation-message"></label> <input
+									type="text" th:field="*{email}" placeholder="Email"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<label th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}" class="validation-message"></label> <input
+									type="password" th:field="*{password}" placeholder="Password"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+
+								<button type="submit" class="btn btn-primary btn-block">
+									Sign Up</button>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<label style="color: #fff;">Already have an account ?</label>
+							</div>
+							<div class="col-sm-4 col-sm-offset-2">
+
+								<button class="btn btn-md  btn-success btn-link"
+									onclick="jQuery('#loginForm').fadeIn();jQuery('#signUpForm').hide();"
+									type="button"
+									style="margin-top: -5px; color: #fff; text-decoration: underline; cursor: pointer;">Login
+								</button>
+
+							</div>
+						</div>
+					</div>
+					<span th:utext="${successMessage}"></span>
+
+
+				</form>
+				<form th:action="@{/login}" method="POST" class="form-signin"
+					style="margin-top: 25px; margin-bottom: 25px; display: none;"
+					id="loginForm">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<input type="text" id="email" name="email"
+									th:placeholder="Email" class="form-control" />
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+								<input type="password" th:placeholder="Password" id="password"
+									name="password" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group" th:if="${param.error}">
+						<p style="font-size: 20; color: #FF1C19;">Email or Password
+							invalid, please verify</p>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-4">
+
+								<button class="btn btn-primary btn-block" name="Submit"
+									value="Login" type="Submit" th:text="Login"></button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<label style="color: #fff;">Dont have an account ?</label>
+							</div>
+							<div class="col-sm-4 col-sm-offset-2">
+
+								<button class="btn btn-md  btn-success btn-link"
+									onclick="jQuery('#loginForm').hide();jQuery('#signUpForm').fadeIn();"
+									type="button"
+									style="margin-top: -5px; color: #fff; text-decoration: underline; cursor: pointer;">Sign
+									Up</button>
+
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

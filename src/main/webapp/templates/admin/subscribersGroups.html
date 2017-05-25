@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sendbooth | Subscribers Groups</title>
+<!-- Bootstrap -->
+<link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!-- Font Awesome -->
+<link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet">
+<!-- NProgress -->
+<link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+<!-- iCheck -->
+<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+<!-- Datatables -->
+<link
+	th:href="@{/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}"
+	rel="stylesheet">
+<link
+	th:href="@{/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}"
+	rel="stylesheet">
+<link
+	th:href="@{/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}"
+	rel="stylesheet">
+<link
+	th:href="@{/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}"
+	rel="stylesheet">
+<link
+	th:href="@{/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}"
+	rel="stylesheet">
+
+<!-- bootstrap-progressbar -->
+<link
+	th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}"
+	rel="stylesheet">
+<!-- JQVMap -->
+<link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet" />
+<!-- bootstrap-daterangepicker -->
+<link
+	th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}"
+	rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+
+
+<link th:href="@{/vendors/select2/dist/css/select2.min.css}"
+	type="text/css" rel="stylesheet" />
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div th:replace="fragments/header :: header"></div>
+			<!-- top navigation -->
+			<div th:replace="fragments/topnav :: topnav"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<!-- start of my section -->
+				<!-- top tiles -->
+
+				<!-- /top tiles -->
+				<!--End of my section -->
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>Add subscribers in bulk By uploading csv file</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="addSubscriberGroup" data-parsley-validate=""
+									autocomplete="off" action="#"
+									th:action="@{/admin/addSubscriberGroup}" method="post"
+									class="form-horizontal form-label-left">
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="subscriber-group-name">Subscriber Group Name <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="subscriber-group-name"
+												name="subscriber-group-name" required="required"
+												class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="subscribersToAddInGroup">Add Subscribers <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<select class="js-example-basic-multiple form-control"
+												multiple="multiple" name="subscribersToAddInGroup"
+												id="subscribersToAddInGroup">
+												<option th:each="subscriber : ${subscriberList}"
+													th:value="${subscriber.subscriberId}"
+													th:text="${subscriber.subscriberEmail}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+											<button class="btn btn-primary" type="reset">Reset</button>
+											<button type="submit" class="btn btn-success">Create
+												Group</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>Add subscribers in bulk By uploading csv file</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+
+								<br>
+								<form id="addSubscribersToSubscriberGroup"
+									data-parsley-validate="" autocomplete="off" action="#"
+									th:action="@{/admin/addSubscribersToSubscriberGroup}"
+									class="form-horizontal form-label-left" method="post">
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="subscriber-group-name">Subscriber Groups <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<select class="form-control" name="subscriber-group-id"
+												id="subscriber-group-id" required="required"
+												onchange="getSubscriberNotInSelectedGroup();">
+												<option value="*">Please select a group</option>
+												<option th:each="subscribersGroup : ${subscribersGroupList}"
+													th:value="${subscribersGroup.subscriberGroupId}"
+													th:text="${subscribersGroup.subscriberGroupName}"></option>
+											</select>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="subscriber-group-name">Subscriber Not In Group <span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<select class="form-control subscribers-not-in-group"
+												multiple="multiple" name="subscribers-not-in-group"
+												id="subscribers-not-in-group" required="required">
+											</select>
+
+										</div>
+									</div>
+
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+											<button class="btn btn-primary" type="reset">Reset</button>
+											<button type="submit" class="btn btn-success"
+												onclick="updateSubscriberGroup()">Create Group</button>
+										</div>
+									</div>
+
+								</form>
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>All Subscriber groups you have in your list</h2>
+
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<p class="text-muted font-13 m-b-30">You can filter the
+									subscriber groups by using the search feature</p>
+
+								<table id="datatable-responsive"
+									class="table table-striped table-bordered dt-responsive nowrap"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Subscriber Group Name</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="subscribersGroup : ${subscribersGroupList}">
+											<td th:text="${subscribersGroup.subscriberGroupName}"></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- /page content -->
+
+		<!-- footer content -->
+		<footer th:replace="fragments/footer :: footer"> </footer>
+		<!-- /footer content -->
+	</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- Chart.js -->
+	<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+	<!-- gauge.js -->
+	<script th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+	<!-- Skycons -->
+	<script th:src="@{/vendors/skycons/skycons.js}"></script>
+	<!-- Flot -->
+	<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+	<script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+	<!-- Flot plugins -->
+	<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+	<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+	<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+	<!-- DateJS -->
+	<script th:src="@{/vendors/DateJS/build/date.js}"></script>
+	<!-- JQVMap -->
+	<script th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+	<script th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+	<script
+		th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+	<script
+		th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{/filescript/bootstrap-filestyle.min.js}"></script>
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+
+	<!-- Datatables -->
+	<script th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	<script
+		th:src="@{/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	<script th:src="@{/vendors/jszip/dist/jszip.min.js}"></script>
+	<script th:src="@{/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	<script th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
+
+	<script type="text/javascript"
+		th:src="@{/vendors/select2/dist/js/select2.full.js}"></script>
+	<script>
+		jQuery(document).ready(function() {
+			$(".js-example-basic-multiple").select2({
+				placeholder : "Select subscribers",
+				allowClear : true
+			});
+			$(".subscribers-not-in-group").select2();
+		});
+		function getSubscriberNotInSelectedGroup() {
+
+			var subscriberGroupId = jQuery('#subscriber-group-id').val();
+			if (subscriberGroupId != "*") {
+				var item = {};
+				item.subscriberGroupId = subscriberGroupId;
+				$.ajax({
+					type : "POST",
+					url : "/admin/getSubscriberNotInSelectedGroup",
+					data : {
+						subscriberGroupId : subscriberGroupId
+					},
+
+					success : function(data) {
+						populateSubscribersInGroup(data);
+					},
+					error : function(e) {
+
+					},
+					done : function(e) {
+						console.log("DONE");
+
+					}
+				});
+			}
+
+		}
+		function populateSubscribersInGroup(data) {
+			console.log(data);
+
+			var dataForList = [];
+			for (var i = 0; i < data.length; i++) {
+				var item = {};
+				item.id = data[i].subscriberId;
+				item.text = data[i].subscriberEmail;
+				dataForList.push(item);
+			}
+
+			$(".subscribers-not-in-group").select2({
+				allowClear : true,
+				data : dataForList
+			});
+
+		}
+		function updateSubscriberGroup(){
+			
+		}
+	</script>
+</body>
+</html>

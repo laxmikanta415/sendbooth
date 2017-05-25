@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body class="nav-md">
+	<div  class="container body">
+		<div class="main_container">
+			
+
+			<!-- top navigation -->
+			<div th:fragment="topnav"  class="top_nav">
+				<div class="nav_menu">
+					<nav>
+						<div class="nav toggle">
+							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+						</div>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class=""><a href="javascript:;"
+								class="user-profile dropdown-toggle" data-toggle="dropdown"
+								aria-expanded="false"> <span th:utext="${userName}"></span>
+									<span class=" fa fa-angle-down"></span>
+							</a>
+								<ul class="dropdown-menu dropdown-usermenu pull-right">
+									<li><a href="javascript:;"> Profile</a></li>
+									<li><a href="settings.html"> <span
+											class="badge bg-red pull-right">50%</span> <span>Settings</span>
+									</a></li>
+									<li><a href="javascript:;">Help</a></li>
+									<li>
+										<form th:action="@{/logout}" method="get">
+											<button class="btn btn-md btn-danger btn-block"
+												name="registration" type="Submit">Logout</button>
+										</form>
+									</li>
+								</ul></li>
+
+
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			
+
+			<!-- /page content -->
+
+			<!-- footer content -->
+			
+			<!-- /footer content -->
+		</div>
+	</div>
+
+</body>
+</html>

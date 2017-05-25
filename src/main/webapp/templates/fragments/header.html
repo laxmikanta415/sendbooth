@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div th:fragment="header" class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a href="#" class="site_title"><i class="fa fa-paper-plane"></i>
+							<span>SendBooth</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<!-- menu profile quick info -->
+					<div class="profile clearfix">
+
+						<div class="profile_info" style="width: 100%;">
+
+							<span>Welcome ,</span>
+							<h2 style="color: #fff;" th:utext="${userName}"></h2>
+						</div>
+					</div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div id="sidebar-menu"
+						class="main_menu_side hidden-print main_menu">
+						<div class="menu_section">
+							<ul class="nav side-menu">
+								<li><a href="/admin/home"><i class="fa fa-home"></i>
+										Dashboard </a></li>
+
+								<li><a href="/admin/subscribers"><i class="fa fa-users"></i>
+										Subscribers </a></li>
+								<li><a href="/admin/subscribersGroups"><i
+										class="fa fa-list-alt"></i> Subscriber Groups </a></li>
+								<li><a href="/admin/emailMarketingCampaign"><i
+										class="fa fa-envelope"></i> Email Campaigns </a></li>
+
+							</ul>
+						</div>
+					</div>
+					<!-- /sidebar menu -->
+
+					<!-- /menu footer buttons -->
+
+					<!-- /menu footer buttons -->
+				</div>
+			</div>
+
+			<!-- top navigation -->
+
+			<!-- /top navigation -->
+
+			<!-- page content -->
+
+
+			<!-- /page content -->
+
+			<!-- footer content -->
+
+			<!-- /footer content -->
+		</div>
+	</div>
+
+</body>
+</html>
